@@ -1,0 +1,23 @@
+/*
+ * FIELD.c
+ *
+ *  Created on: 28 May 2023
+ *      Author: dominikpapp
+ */
+#include <my/field.h>
+
+void FieldPlusCursor(SegmentLCD_LowerCharSegments_TypeDef field[SEGMENT_LCD_NUM_OF_LOWER_CHARS], SegmentLCD_LowerCharSegments_TypeDef cursor_pos[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  uint8_t pos = getCursorPos(cursor_pos);
+  if(cursor_pos[pos].g || cursor_pos[pos].m)
+    field[pos].raw |= bitG | bitM;
+  else
+    field[pos].raw |= cursor_pos[pos].raw;
+}
+
+void FieldMinusCursor(SegmentLCD_LowerCharSegments_TypeDef field[SEGMENT_LCD_NUM_OF_LOWER_CHARS], SegmentLCD_LowerCharSegments_TypeDef cursor_pos[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  uint8_t pos = getCursorPos(cursor_pos);
+  if(cursor_pos[pos].g || cursor_pos[pos].m)
+    field[pos].raw &= ~(bitG | bitM);
+  else
+    field[pos].raw &= ~cursor_pos[pos].raw;
+}

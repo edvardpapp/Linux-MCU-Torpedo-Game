@@ -1,0 +1,37 @@
+/*
+ * my_segmentlcd.c
+ *
+ *  Created on: 28 May 2023
+ *      Author: dominikpapp
+ */
+#include "my_segmentlcd.h"
+
+const unsigned onemilisec = 1000;
+
+void SegmentLCD_ARingSet(bool set){
+  for(int i = 0; i < 8; i ++)
+      SegmentLCD_ARing(i, set);
+}
+
+void SegmentLCD_ARingOnDelay(uint16_t milisec){
+  for(int i = 0; i < 8; i ++){
+      SegmentLCD_ARing(i, true);
+      sl_udelay_wait(milisec * 1000);
+  }
+}
+
+void SegmentLCD_ARingOffDelay(uint16_t milisec){
+  for(int i = 0; i < 8; i ++){
+      SegmentLCD_ARing(i, false);
+      sl_udelay_wait(milisec * onemilisec);
+  }
+}
+
+void SegmentLCD_ARingBlink(uint8_t cycles, bool start_state, uint16_t delayMs){
+  bool set = start_state;
+  for(int i = 0; i < cycles; i ++){
+    SegmentLCD_ARingSet(set);
+    set = !set;
+    sl_udelay_wait(delayMs * onemilisec);
+  }
+}

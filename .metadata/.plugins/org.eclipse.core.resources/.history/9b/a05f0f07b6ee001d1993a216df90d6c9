@@ -1,0 +1,123 @@
+/***************************************************************************//**
+ * @file
+ * @brief Top level application functions
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
+
+#include <stdio.h>
+
+#include <FreeRTOS.h>
+#include <task.h>
+#include "sl_udelay.h"
+#include <sl_iostream.h>
+#include <sl_iostream_usart.h>
+
+#include <em_gpio.h>
+#include <em_cmu.h>
+#include <em_chip.h>
+#include <em_usart.h>
+#include "pin_config.h"
+#include "caplesense.h"
+#include "my_init.h"
+#include "segmentlcd.h"
+#include "retargetserial.h"
+/***************************************************************************//**
+ * Globals.
+ ******************************************************************************/
+TaskHandle_t hTaskBtn0;
+TaskHandle_t hTaskBtn1;
+TaskHandle_t hTaskLCD;
+const unsigned onemilisec = 1000;
+/***************************************************************************//**
+ * ISRs.
+ ******************************************************************************/
+void GPIO_ODD_IRQHandler() {
+  BaseType_t xSwitchRequired;
+  GPIO_IntClear(1 << PB0_PIN);
+  xSwitchRequired = xTaskResumeFromISR(hTaskBtn0);
+
+  portYIELD_FROM_ISR(xSwitchRequired);
+}
+
+void GPIO_EVEN_IRQHandler() {
+  BaseType_t xSwitchRequired;
+
+  GPIO_IntClear(1 << PB1_PIN);
+  xSwitchRequired = xTaskResumeFromISR(hTaskBtn1);
+
+  portYIELD_FROM_ISR(xSwitchRequired);
+}
+
+/***************************************************************************//**
+ * FreeRTOS tasks.
+ ******************************************************************************/
+static void prvTaskBtn0(void *pvParam) {
+  while (1) {
+      vTaskSuspend(NULL);
+      printf("PB0 has been pressed!\n");
+  }
+}
+
+static void prvTaskBtn1(void *pvParam) {
+  while (1) {
+      vTaskSuspend(NULL);
+      printf("PB1 has been pressed!\n");
+  }
+}
+//sl_iostream_usart.c-ben a sl_iostream_usart_irq_handlerl
+static void prvTaskLCD(void *pvParam) {
+  sl_iostream_t *a = sl_iostream_get_handle("vcom");
+  sl_iostream_usart_context_t *usart_context = (sl_iostream_usart_context_t *)a->context;
+  while (1) {
+      /*
+      SegmentLCD_Init(false);
+      SegmentLCD_AllOn();
+      sl_udelay_wait(2000 * onemilisec);
+      SegmentLCD_AllOff();
+      SegmentLCD_Disable();
+      sl_udelay_wait(2000 * onemilisec);
+      */
+      if(usart_context->context.rx_data_available){
+          char c;
+          int a = 0;
+          sl_iostream_read(a, &c, 1, &a);
+          printf("Data: %c has been received!\n", c);
+          if(usart_context->context.rx_data_available)
+            usart_context->context.rx_data_available = false;
+      }
+  }
+}
+
+/***************************************************************************//**
+ * Initialize application.
+ ******************************************************************************/
+void app_init(void)
+{
+  CHIP_Init();
+  CMU_ClockEnable(cmuClock_GPIO, true);
+  init_PB0();
+  init_PB1();
+
+  xTaskCreate(prvTaskBtn0, "Btn0", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, &hTaskBtn0);
+  xTaskCreate(prvTaskBtn1, "Btn1", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, &hTaskBtn1);
+  xTaskCreate(prvTaskLCD, "LCD",  configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, &hTaskLCD);
+
+}
+
+/***************************************************************************//**
+ * App ticking function.
+ ******************************************************************************/
+void app_process_action(void)
+{
+}

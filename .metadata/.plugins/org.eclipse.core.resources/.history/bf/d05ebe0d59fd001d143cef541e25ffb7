@@ -1,0 +1,17 @@
+/*
+ * cursor.h
+ *
+ *  Created on: 28 May 2023
+ *      Author: dominikpapp
+ */
+
+#ifndef CURSOR_H_
+#define CURSOR_H_
+
+#include "segmentlcd_individual.h"
+#include <stdbool.h>
+
+void init_cursor(SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]);
+
+
+#endif /* CURSOR_H_ */

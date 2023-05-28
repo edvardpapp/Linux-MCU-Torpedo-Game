@@ -1,0 +1,174 @@
+20:37:42 **** Build of configuration GNU ARM v10.3.1 - Debug for project PEP_FreeRTOS_2023_2 ****
+make -j7 all 
+Building file: ../app_06.c
+Building file: ../autogen/sl_event_handler.c
+Building file: ../my_init.c
+Invoking: GNU ARM C Compiler
+arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m3 -mthumb -std=c99 '-DDEBUG=1' '-DDEBUG_EFM=1' '-DEFM32GG990F1024=1' '-DSL_BOARD_NAME="BRD2200A"' '-DSL_BOARD_REV="B05"' '-DconfigNUM_SDK_THREAD_LOCAL_STORAGE_POINTERS=2' '-DSL_COMPONENT_CATALOG_PRESENT=1' -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/middleware/glib" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/EFM32_Gxxx_STK/config" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/common/bsp" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/middleware/usb_gecko/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/EFM32GG_STK3700/config" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/common/drivers" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/autogen" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/board/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/CMSIS/Core/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/CMSIS/RTOS2/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/device_init/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/dmadrv/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/common/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/cmsis/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/portable/GCC/ARM_CM3" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/system/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/udelay/inc" -Os -Wall -Wextra -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections -imacrossl_gcc_preinclude.h --specs=nano.specs -c -fmessage-length=0 -MMD -MP -MF"app_06.d" -MT"app_06.o" -o "app_06.o" "../app_06.c"
+Invoking: GNU ARM C Compiler
+arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m3 -mthumb -std=c99 '-DDEBUG=1' '-DDEBUG_EFM=1' '-DEFM32GG990F1024=1' '-DSL_BOARD_NAME="BRD2200A"' '-DSL_BOARD_REV="B05"' '-DconfigNUM_SDK_THREAD_LOCAL_STORAGE_POINTERS=2' '-DSL_COMPONENT_CATALOG_PRESENT=1' -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/middleware/glib" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/EFM32_Gxxx_STK/config" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/common/bsp" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/middleware/usb_gecko/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/EFM32GG_STK3700/config" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/common/drivers" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/autogen" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/board/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/CMSIS/Core/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/CMSIS/RTOS2/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/device_init/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/dmadrv/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/common/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/cmsis/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/portable/GCC/ARM_CM3" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/system/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/udelay/inc" -Os -Wall -Wextra -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections -imacrossl_gcc_preinclude.h --specs=nano.specs -c -fmessage-length=0 -MMD -MP -MF"my_init.d" -MT"my_init.o" -o "my_init.o" "../my_init.c"
+Invoking: GNU ARM C Compiler
+arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m3 -mthumb -std=c99 '-DDEBUG=1' '-DDEBUG_EFM=1' '-DEFM32GG990F1024=1' '-DSL_BOARD_NAME="BRD2200A"' '-DSL_BOARD_REV="B05"' '-DconfigNUM_SDK_THREAD_LOCAL_STORAGE_POINTERS=2' '-DSL_COMPONENT_CATALOG_PRESENT=1' -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/middleware/glib" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/EFM32_Gxxx_STK/config" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/common/bsp" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/middleware/usb_gecko/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/EFM32GG_STK3700/config" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/kit/common/drivers" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/autogen" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/board/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/CMSIS/Core/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/CMSIS/RTOS2/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/device_init/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/dmadrv/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/common/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/cmsis/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/portable/GCC/ARM_CM3" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/system/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/udelay/inc" -Os -Wall -Wextra -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections -imacrossl_gcc_preinclude.h --specs=nano.specs -c -fmessage-length=0 -MMD -MP -MF"autogen/sl_event_handler.d" -MT"autogen/sl_event_handler.o" -o "autogen/sl_event_handler.o" "../autogen/sl_event_handler.c"
+In file included from ../app_06.c:24:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_usart.h:71:3: error: conflicting types for 'USART_TypeDef'
+   71 | } USART_TypeDef;             /**< USART Register Declaration *//** @} */
+      |   ^~~~~~~~~~~~~
+In file included from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h:304,
+                 from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/em_device.h:159,
+                 from /Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config/FreeRTOSConfig.h:47,
+                 from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include/FreeRTOS.h:70,
+                 from ../app_06.c:20:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_usart.h:71:3: note: previous declaration of 'USART_TypeDef' was here
+   71 | } USART_TypeDef;             /**< USART Register Declaration *//** @} */
+      |   ^~~~~~~~~~~~~
+../autogen/sl_event_handler.c:12:10: fatal error: sl_iostream_init_instances.h: No such file or directory
+   12 | #include "sl_iostream_init_instances.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [autogen/sl_event_handler.o] Error 1
+make: *** Waiting for unfinished jobs....
+In file included from ../my_init.h:10,
+                 from ../app_06.c:32:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_usart.h:71:3: error: conflicting types for 'USART_TypeDef'
+   71 | } USART_TypeDef;             /**< USART Register Declaration *//** @} */
+      |   ^~~~~~~~~~~~~
+In file included from ../app_06.c:24:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_usart.h:71:3: note: previous declaration of 'USART_TypeDef' was here
+   71 | } USART_TypeDef;             /**< USART Register Declaration *//** @} */
+      |   ^~~~~~~~~~~~~
+In file included from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/em_device.h:159,
+                 from /Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config/FreeRTOSConfig.h:47,
+                 from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include/FreeRTOS.h:70,
+                 from ../app_06.c:20:
+../app_06.c: In function 'UART1_RX_IRQHandler':
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h:401:22: warning: passing argument 1 of 'USART_RxDataXGet' from incompatible pointer type [-Wincompatible-pointer-types]
+  401 | #define UART1        ((USART_TypeDef *) UART1_BASE)         /**< UART1 base pointer */
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                      |
+      |                      USART_TypeDef *
+../app_06.c:43:32: note: in expansion of macro 'UART1'
+   43 |   uint8_t c = USART_RxDataXGet(UART1);
+      |                                ^~~~~
+In file included from ../app_06.c:29:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_usart.h:1075:58: note: expected 'USART_TypeDef *' but argument is of type 'USART_TypeDef *'
+ 1075 | __STATIC_INLINE uint16_t USART_RxDataXGet(USART_TypeDef *usart)
+      |                                           ~~~~~~~~~~~~~~~^~~~~
+In file included from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/em_device.h:159,
+                 from /Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config/FreeRTOSConfig.h:47,
+                 from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include/FreeRTOS.h:70,
+                 from ../app_06.c:20:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h:401:22: warning: passing argument 1 of 'USART_Tx' from incompatible pointer type [-Wincompatible-pointer-types]
+  401 | #define UART1        ((USART_TypeDef *) UART1_BASE)         /**< UART1 base pointer */
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                      |
+      |                      USART_TypeDef *
+../app_06.c:44:12: note: in expansion of macro 'UART1'
+   44 |   USART_Tx(UART1, c);
+      |            ^~~~~
+In file included from ../app_06.c:29:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_usart.h:1081:30: note: expected 'USART_TypeDef *' but argument is of type 'USART_TypeDef *'
+ 1081 | void USART_Tx(USART_TypeDef *usart, uint8_t data);
+      |               ~~~~~~~~~~~~~~~^~~~~
+../app_06.c: In function 'prvTaskBtn0':
+../app_06.c:69:31: warning: unused parameter 'pvParam' [-Wunused-parameter]
+   69 | static void prvTaskBtn0(void *pvParam) {
+      |                         ~~~~~~^~~~~~~
+../app_06.c: In function 'prvTaskBtn1':
+../app_06.c:76:31: warning: unused parameter 'pvParam' [-Wunused-parameter]
+   76 | static void prvTaskBtn1(void *pvParam) {
+      |                         ~~~~~~^~~~~~~
+In file included from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/em_device.h:159,
+                 from /Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config/FreeRTOSConfig.h:47,
+                 from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include/FreeRTOS.h:70,
+                 from ../app_06.c:20:
+../app_06.c: In function 'prvTaskLCD':
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h:401:22: warning: passing argument 1 of 'USART_Tx' from incompatible pointer type [-Wincompatible-pointer-types]
+  401 | #define UART1        ((USART_TypeDef *) UART1_BASE)         /**< UART1 base pointer */
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                      |
+      |                      USART_TypeDef *
+../app_06.c:86:16: note: in expansion of macro 'UART1'
+   86 |       USART_Tx(UART1, 'x');
+      |                ^~~~~
+In file included from ../app_06.c:29:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_usart.h:1081:30: note: expected 'USART_TypeDef *' but argument is of type 'USART_TypeDef *'
+ 1081 | void USART_Tx(USART_TypeDef *usart, uint8_t data);
+      |               ~~~~~~~~~~~~~~~^~~~~
+../app_06.c:83:30: warning: unused parameter 'pvParam' [-Wunused-parameter]
+   83 | static void prvTaskLCD(void *pvParam) {
+      |                        ~~~~~~^~~~~~~
+In file included from ../my_init.h:10,
+                 from ../my_init.c:1:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_usart.h:71:3: error: conflicting types for 'USART_TypeDef'
+   71 | } USART_TypeDef;             /**< USART Register Declaration *//** @} */
+      |   ^~~~~~~~~~~~~
+In file included from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h:304,
+                 from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/em_device.h:159,
+                 from /Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config/FreeRTOSConfig.h:47,
+                 from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include/FreeRTOS.h:70,
+                 from ../my_init.h:1,
+                 from ../my_init.c:1:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_usart.h:71:3: note: previous declaration of 'USART_TypeDef' was here
+   71 | } USART_TypeDef;             /**< USART Register Declaration *//** @} */
+      |   ^~~~~~~~~~~~~
+In file included from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/em_device.h:159,
+                 from /Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config/FreeRTOSConfig.h:47,
+                 from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include/FreeRTOS.h:70,
+                 from ../my_init.h:1,
+                 from ../my_init.c:1:
+../my_init.c: In function 'init_uart1':
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h:401:22: warning: passing argument 1 of 'USART_InitAsync' from incompatible pointer type [-Wincompatible-pointer-types]
+  401 | #define UART1        ((USART_TypeDef *) UART1_BASE)         /**< UART1 base pointer */
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                      |
+      |                      USART_TypeDef *
+../my_init.c:23:19: note: in expansion of macro 'UART1'
+   23 |   USART_InitAsync(UART1, &uartInit);
+      |                   ^~~~~
+In file included from ../my_init.h:7,
+                 from ../my_init.c:1:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_usart.h:783:37: note: expected 'USART_TypeDef *' but argument is of type 'USART_TypeDef *'
+  783 | void USART_InitAsync(USART_TypeDef *usart, const USART_InitAsync_TypeDef *init);
+      |                      ~~~~~~~~~~~~~~~^~~~~
+In file included from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/em_device.h:159,
+                 from /Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config/FreeRTOSConfig.h:47,
+                 from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include/FreeRTOS.h:70,
+                 from ../my_init.h:1,
+                 from ../my_init.c:1:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h:401:22: warning: passing argument 1 of 'USART_Enable' from incompatible pointer type [-Wincompatible-pointer-types]
+  401 | #define UART1        ((USART_TypeDef *) UART1_BASE)         /**< UART1 base pointer */
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                      |
+      |                      USART_TypeDef *
+../my_init.c:24:16: note: in expansion of macro 'UART1'
+   24 |   USART_Enable(UART1, usartEnable);
+      |                ^~~~~
+In file included from ../my_init.h:7,
+                 from ../my_init.c:1:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_usart.h:781:34: note: expected 'USART_TypeDef *' but argument is of type 'USART_TypeDef *'
+  781 | void USART_Enable(USART_TypeDef *usart, USART_Enable_TypeDef enable);
+      |                   ~~~~~~~~~~~~~~~^~~~~
+In file included from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/em_device.h:159,
+                 from /Users/dominikpapp/SimplicityStudio/v5_workspace/PEP_FreeRTOS_2023_2/config/FreeRTOSConfig.h:47,
+                 from /Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include/FreeRTOS.h:70,
+                 from ../my_init.h:1,
+                 from ../my_init.c:1:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h:401:22: warning: passing argument 1 of 'USART_IntEnable' from incompatible pointer type [-Wincompatible-pointer-types]
+  401 | #define UART1        ((USART_TypeDef *) UART1_BASE)         /**< UART1 base pointer */
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                      |
+      |                      USART_TypeDef *
+../my_init.c:25:19: note: in expansion of macro 'UART1'
+   25 |   USART_IntEnable(UART1, USART_IEN_RXDATAV);
+      |                   ^~~~~
+In file included from ../my_init.h:7,
+                 from ../my_init.c:1:
+/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_usart.h:844:53: note: expected 'USART_TypeDef *' but argument is of type 'USART_TypeDef *'
+  844 | __STATIC_INLINE void USART_IntEnable(USART_TypeDef *usart, uint32_t flags)
+      |                                      ~~~~~~~~~~~~~~~^~~~~
+make: *** [my_init.o] Error 1
+make: *** [app_06.o] Error 1
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+
+20:37:43 Build Failed. 8 errors, 9 warnings. (took 1s.267ms)
+

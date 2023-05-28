@@ -1,0 +1,17 @@
+/*
+ * field.h
+ *
+ *  Created on: 28 May 2023
+ *      Author: dominikpapp
+ */
+
+#ifndef FIELD_H_
+#define FIELD_H_
+
+#include "cursor.h"
+#include "segmentlcd_individual.h"
+
+void FieldPlusCursor(SegmentLCD_LowerCharSegments_TypeDef FIELD[SEGMENT_LCD_NUM_OF_LOWER_CHARS], SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]);
+void FieldMinusCursor(SegmentLCD_LowerCharSegments_TypeDef FIELD[SEGMENT_LCD_NUM_OF_LOWER_CHARS], SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]);
+
+#endif /* MAP_H_ */

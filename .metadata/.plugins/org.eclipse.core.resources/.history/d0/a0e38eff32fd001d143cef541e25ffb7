@@ -1,0 +1,4 @@
+#include "segmentlcd_individual.h"
+
+extern bool game_levels[16][SEGMENT_LCD_NUM_OF_LOWER_CHARS][14];
+

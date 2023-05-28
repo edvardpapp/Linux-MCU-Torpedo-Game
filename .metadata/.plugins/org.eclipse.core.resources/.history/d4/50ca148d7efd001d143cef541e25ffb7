@@ -1,0 +1,249 @@
+/*
+ * cursor.c
+ *
+ *  Created on: 28 May 2023
+ *      Author: dominikpapp
+ */
+#include <my/cursor.h>
+
+void init_cursor(SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  CURSOR_POS[0].a = true;
+}
+
+uint8_t getCursorPos(const SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  for(int i = 0; i < SEGMENT_LCD_NUM_OF_LOWER_CHARS; i ++)
+    if(CURSOR_POS[i].raw > 0)
+      return i;
+}
+
+void moveUp(SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  uint8_t pos = getCursorPos(CURSOR_POS);
+  switch (CURSOR_POS[pos].raw) {
+      case bitA:
+          break;
+      case bitB:
+        CURSOR_POS[pos].raw = bitA;
+          break;
+      case bitC:
+        CURSOR_POS[pos].raw = bitM;
+          break;
+      case bitD:
+        CURSOR_POS[pos].raw = bitP;
+          break;
+      case bitE:
+        CURSOR_POS[pos].raw = bitG;
+          break;
+      case bitF:
+        CURSOR_POS[pos].raw = bitA;
+          break;
+      case bitG:
+        CURSOR_POS[pos].raw = bitH;
+          break;
+      case bitH:
+        CURSOR_POS[pos].raw = bitA;
+          break;
+      case bitJ:
+        CURSOR_POS[pos].raw = bitA;
+          break;
+      case bitK:
+        CURSOR_POS[pos].raw = bitA;
+          break;
+      case bitM:
+        CURSOR_POS[pos].raw = bitK;
+          break;
+      case bitN:
+        CURSOR_POS[pos].raw = bitM;
+          break;
+      case bitP:
+        CURSOR_POS[pos].raw = bitJ;
+          break;
+      case bitQ:
+        CURSOR_POS[pos].raw = bitG;
+          break;
+      default:
+          break;
+  }
+
+}
+
+void moveDown(SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  uint8_t pos = getCursorPos(CURSOR_POS);
+  switch (CURSOR_POS[pos].raw) {
+      case bitA:
+        CURSOR_POS[pos].raw = bitJ;
+          break;
+      case bitB:
+        CURSOR_POS[pos].raw = bitM;
+          break;
+      case bitC:
+        CURSOR_POS[pos].raw = bitD;
+          break;
+      case bitD:
+          break;
+      case bitE:
+        CURSOR_POS[pos].raw = bitD;
+          break;
+      case bitF:
+        CURSOR_POS[pos].raw = bitG;
+          break;
+      case bitG:
+        CURSOR_POS[pos].raw = bitQ;
+          break;
+      case bitH:
+        CURSOR_POS[pos].raw = bitG;
+          break;
+      case bitJ:
+        CURSOR_POS[pos].raw = bitP;
+          break;
+      case bitK:
+        CURSOR_POS[pos].raw = bitM;
+          break;
+      case bitM:
+        CURSOR_POS[pos].raw = bitN;
+          break;
+      case bitN:
+        CURSOR_POS[pos].raw = bitD;
+          break;
+      case bitP:
+        CURSOR_POS[pos].raw = bitD;
+          break;
+      case bitQ:
+        CURSOR_POS[pos].raw = bitD;
+          break;
+      default:
+          break;
+  }
+
+}
+
+void moveLeft(SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  uint8_t pos = getCursorPos(CURSOR_POS);
+  switch (CURSOR_POS[pos].raw) {
+      case bitA:
+        if(pos == 0)
+          break;
+        CURSOR_POS[pos].raw = 0;
+        CURSOR_POS[pos - 1].raw = bitA;
+          break;
+      case bitB:
+        CURSOR_POS[pos].raw = bitK;
+          break;
+      case bitC:
+        CURSOR_POS[pos].raw = bitN;
+          break;
+      case bitD:
+        if(pos == 0)
+          break;
+        CURSOR_POS[pos].raw = 0;
+        CURSOR_POS[pos - 1].raw = bitD;
+          break;
+      case bitE:
+        if(pos == 0)
+          break;
+        CURSOR_POS[pos].raw = 0;
+        CURSOR_POS[pos - 1].raw = bitC;
+          break;
+      case bitF:
+        if(pos == 0)
+          break;
+        CURSOR_POS[pos].raw = 0;
+        CURSOR_POS[pos - 1].raw = bitB;
+          break;
+      case bitG:
+        if(pos == 0)
+          break;
+        CURSOR_POS[pos].raw = 0;
+        CURSOR_POS[pos - 1].raw = bitM;
+          break;
+      case bitH:
+        CURSOR_POS[pos].raw = bitF;
+          break;
+      case bitJ:
+        CURSOR_POS[pos].raw = bitH;
+          break;
+      case bitK:
+        CURSOR_POS[pos].raw = bitJ;
+          break;
+      case bitM:
+        CURSOR_POS[pos].raw = bitG;
+          break;
+      case bitN:
+        CURSOR_POS[pos].raw = bitP;
+          break;
+      case bitP:
+        CURSOR_POS[pos].raw = bitQ;
+          break;
+      case bitQ:
+        CURSOR_POS[pos].raw = bitE;
+          break;
+      default:
+          break;
+  }
+
+}
+
+void moveRight(SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  uint8_t pos = getCursorPos(CURSOR_POS);
+  switch (CURSOR_POS[pos].raw) {
+      case bitA:
+        if(pos == SEGMENT_LCD_NUM_OF_LOWER_CHARS - 1)
+          break;
+        CURSOR_POS[pos].raw = 0;
+        CURSOR_POS[pos + 1].raw = bitA;
+          break;
+      case bitB:
+        if(pos == SEGMENT_LCD_NUM_OF_LOWER_CHARS - 1)
+          break;
+        CURSOR_POS[pos].raw = 0;
+        CURSOR_POS[pos + 1].raw = bitF;
+          break;
+      case bitC:
+        if(pos == SEGMENT_LCD_NUM_OF_LOWER_CHARS - 1)
+          break;
+        CURSOR_POS[pos].raw = 0;
+        CURSOR_POS[pos + 1].raw = bitE;
+          break;
+      case bitD:
+        if(pos == SEGMENT_LCD_NUM_OF_LOWER_CHARS - 1)
+          break;
+        CURSOR_POS[pos].raw = 0;
+        CURSOR_POS[pos + 1].raw = bitD;
+          break;
+      case bitE:
+        CURSOR_POS[pos].raw = bitQ;
+          break;
+      case bitF:
+        CURSOR_POS[pos].raw = bitH;
+          break;
+      case bitG:
+        CURSOR_POS[pos].raw = bitM;
+          break;
+      case bitH:
+        CURSOR_POS[pos].raw = bitJ;
+          break;
+      case bitJ:
+        CURSOR_POS[pos].raw = bitK;
+          break;
+      case bitK:
+        CURSOR_POS[pos].raw = bitB;
+          break;
+      case bitM:
+        if(pos == SEGMENT_LCD_NUM_OF_LOWER_CHARS - 1)
+          break;
+        CURSOR_POS[pos].raw = 0;
+        CURSOR_POS[pos + 1].raw = bitG;
+          break;
+      case bitN:
+        CURSOR_POS[pos].raw = bitC;
+          break;
+      case bitP:
+        CURSOR_POS[pos].raw = bitN;
+          break;
+      case bitQ:
+        CURSOR_POS[pos].raw = bitP;
+          break;
+      default:
+          break;
+  }
+
+}

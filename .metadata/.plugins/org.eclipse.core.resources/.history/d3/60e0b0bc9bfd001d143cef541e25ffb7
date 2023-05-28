@@ -1,0 +1,245 @@
+/***************************************************************************//**
+ * @file
+ * @brief Top level application functions
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
+
+#include <app.h>
+
+/***************************************************************************//**
+ * Globals.
+ ******************************************************************************/
+TaskHandle_t hTaskUart0;
+TaskHandle_t hTaskBtn0;
+TaskHandle_t hTaskBtn1;
+TaskHandle_t hTaskLCD;
+TaskHandle_t hTaskCursorBlink;
+
+TimerHandle_t hMsTimer;
+
+SemaphoreHandle_t RxValid;
+
+QueueHandle_t UartData;
+
+SegmentLCD_LowerCharSegments_TypeDef FIELD[SEGMENT_LCD_NUM_OF_LOWER_CHARS] = {0};
+SegmentLCD_LowerCharSegments_TypeDef MAP[SEGMENT_LCD_NUM_OF_LOWER_CHARS];
+SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS] = {0};
+SegmentLCD_LowerCharSegments_TypeDef HIT[SEGMENT_LCD_NUM_OF_LOWER_CHARS] = {0};
+
+const unsigned onemilisec = 1000;
+volatile char rx_data;
+uint32_t game_time_100ms = 0;
+/***************************************************************************//**
+ * ISRs.
+ ******************************************************************************/
+void UART0_RX_IRQHandler(void)
+{
+  BaseType_t xSwitchRequired;
+
+  rx_data = USART_Rx(UART0);
+  xSemaphoreGiveFromISR(RxValid, NULL);
+
+  xSwitchRequired = xTaskResumeFromISR(hTaskUart0);
+
+  portYIELD_FROM_ISR(xSwitchRequired);
+
+}
+void GPIO_ODD_IRQHandler() {
+  BaseType_t xSwitchRequired;
+  GPIO_IntClear(1 << PB0_PIN);
+  xSwitchRequired = xTaskResumeFromISR(hTaskBtn0);
+
+  portYIELD_FROM_ISR(xSwitchRequired);
+}
+
+void GPIO_EVEN_IRQHandler() {
+  BaseType_t xSwitchRequired;
+
+  GPIO_IntClear(1 << PB1_PIN);
+  xSwitchRequired = xTaskResumeFromISR(hTaskBtn1);
+
+  portYIELD_FROM_ISR(xSwitchRequired);
+}
+/***************************************************************************//**
+ * Callbacks
+ ******************************************************************************/
+
+void vTimerCallback(void){
+  game_time_100ms ++;
+}
+/***************************************************************************//**
+ * FreeRTOS tasks.
+ ******************************************************************************/
+//sl_iostream_init_uart_instances.c SL_IOSTREAM_UART_RX_IRQ_HANDLER átírva
+static void prvTaskUart0(void *pvParam){
+  while(1){
+    vTaskSuspend(NULL);
+    xSemaphoreTake(RxValid, portMAX_DELAY);
+    xQueueSend(UartData, &rx_data, portMAX_DELAY);
+    //char c;
+    //xQueueReceive(UartData, &c, portMAX_DELAY);
+    //USART_Tx(UART0, c);
+  }
+}
+
+static void prvTaskBtn0(void *pvParam) {
+  while (1) {
+      vTaskSuspend(NULL);
+      const char* message = "PB0 has been pressed!\n";
+      size_t length = strlen(message);
+      size_t i;
+
+      for (i = 0; i < length; i++) {
+          char rx_data = message[i];
+          USART_Tx(UART0, rx_data);
+      }
+  }
+}
+
+static void prvTaskBtn1(void *pvParam) {
+  while (1) {
+      vTaskSuspend(NULL);
+      const char* message = "PB1 has been pressed!\n";
+      size_t length = strlen(message);
+      size_t i;
+
+      for (i = 0; i < length; i++) {
+          char rx_data = message[i];
+          USART_Tx(UART0, rx_data);
+      }
+  }
+}
+
+static void prvTaskLCD(void *pvParam) {
+  static uint8_t shoots = 0;
+  SegmentLCD_Number(shoots);
+  char startFrame[3] = {0};
+  static uint8_t hits = 7;
+  static bool start = true;
+
+  while(1){
+      char c;
+      if(start){
+          xQueueReceive(UartData, &c, portMAX_DELAY);
+          startFrame[strlen(startFrame)] = c;
+          xQueueReceive(UartData, &c, portMAX_DELAY);
+          startFrame[strlen(startFrame)] = c;
+          if(strcmp(startFrame, "xx") == 0){
+              xQueueReceive(UartData, &c, portMAX_DELAY);
+              unsigned num = (unsigned) c;
+              if( num < 16)
+                init_map(MAP, num);
+              else
+                init_map(MAP, 0);
+              hMsTimer = xTimerCreate(NULL, pdMS_TO_TICKS(100), pdTRUE, ( void * ) 0, vTimerCallback);
+              xTimerStart(hMsTimer, portMAX_DELAY);
+              start = false;
+          }
+          else{
+              memset(startFrame, '\0', sizeof(startFrame));
+              continue;
+          }
+      }
+
+      SegmentLCD_LowerSegments(FIELD);
+      xQueueReceive(UartData, &c, portMAX_DELAY);
+      FieldMinusCursor(FIELD, CURSOR_POS);
+      switch (c) {
+        case 'w':
+          moveUp(CURSOR_POS);
+          break;
+        case 's':
+          moveDown(CURSOR_POS);
+          break;
+        case 'a':
+          moveLeft(CURSOR_POS);
+          break;
+        case 'd':
+          moveRight(CURSOR_POS);
+          break;
+        case '\n':
+          SegmentLCD_Number(++shoots);
+          SegmentLCD_ARingOnDelay(60);
+          if(shoot(MAP, CURSOR_POS)){
+            SegmentLCD_ARingBlink(7, false, 400);
+            hit(HIT, CURSOR_POS);
+            hits ++;
+          }
+          else
+            SegmentLCD_ARingSet(false);
+          break;
+        default:
+          break;
+      }
+      FieldPlusHit(FIELD, HIT);
+      FieldPlusCursor(FIELD, CURSOR_POS);
+      if(hits == 8){
+          xTimerStop(hMsTimer, portMAX_DELAY);
+          char buffer[12];  // Assuming 32-bit value can be represented in 12 characters (including null terminator)
+          snprintf(buffer, sizeof(buffer), "%lu", game_time_100ms);  // Convert uint32_t to string
+          // Send the string over USART (pseudo-code)
+          for (int i = 0; buffer[i] != '\0'; i++) {
+              USART_Tx(UART0, buffer[i]);// Send buffer[i] character over USART
+          }
+          SegmentLCD_Write("WINNER");
+          vTaskSuspend(NULL);
+      }
+  }
+}
+static void prvTaskCursorBlink(void *pvParam)  {
+  static bool PlusOrMinus = true;
+  while (1) {
+      if(PlusOrMinus)
+        FieldPlusCursor(FIELD, CURSOR_POS);
+      else
+        FieldMinusCursor(FIELD, CURSOR_POS);
+      PlusOrMinus = !PlusOrMinus;
+      SegmentLCD_LowerSegments(FIELD);
+      vTaskDelay(pdMS_TO_TICKS(750));
+  }
+}
+/***************************************************************************//**
+ * Initialize application.
+ ******************************************************************************/
+void app_init(void)
+{
+  CHIP_Init();
+  CMU_ClockEnable(cmuClock_GPIO, true);
+  init_PB0();
+  init_PB1();
+  init_lcd();
+  init_vcom();
+  init_uart0();
+  init_cursor(CURSOR_POS);
+
+  RxValid = xSemaphoreCreateBinary();
+
+  UartData = xQueueCreate(32, sizeof(uint8_t));
+  if(UartData == NULL)
+    NVIC_SystemReset();
+
+  xTaskCreate(prvTaskUart0, "UART0",  configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 4, &hTaskUart0);
+  xTaskCreate(prvTaskBtn0, "Btn0", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 3, &hTaskBtn0);
+  xTaskCreate(prvTaskBtn1, "Btn1", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 3, &hTaskBtn1);
+  xTaskCreate(prvTaskLCD, "LCD",  configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, &hTaskLCD);
+  xTaskCreate(prvTaskCursorBlink, "CursorBlink",  configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, &hTaskCursorBlink);
+
+}
+
+/***************************************************************************//**
+ * App ticking function.
+ ******************************************************************************/
+void app_process_action(void)
+{
+}

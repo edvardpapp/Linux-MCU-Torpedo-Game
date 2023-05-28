@@ -1,0 +1,19 @@
+#include <FreeRTOS.h>
+#include <em_gpio.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <em_cmu.h>
+#include <em_usart.h>
+#include "pin_config.h"
+#include "ships.h"
+#include "segmentlcd_individual.h"
+
+void init_PB0(void);
+void init_PB1(void);
+void init_lcd(void);
+void init_vcom(void);
+void init_uart0(void);
+void init_map(SegmentLCD_LowerCharSegments_TypeDef MAP[SEGMENT_LCD_NUM_OF_LOWER_CHARS], unsigned level);
+void init_cursor(SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]);
+
+

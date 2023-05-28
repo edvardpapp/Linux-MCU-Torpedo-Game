@@ -1,0 +1,11 @@
+/*
+ * map.c
+ *
+ *  Created on: 28 May 2023
+ *      Author: dominikpapp
+ */
+#include "map.h"
+
+void MapAndCursor(SegmentLCD_LowerCharSegments_TypeDef MAP[SEGMENT_LCD_NUM_OF_LOWER_CHARS], SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  uint8_t = getp
+}

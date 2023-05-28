@@ -1,0 +1,28 @@
+#include "my_init.h"
+
+void init_PB0(void){
+  GPIO_PinModeSet(PB0_PORT, PB0_PIN, gpioModeInput, 0);
+  GPIO_ExtIntConfig(PB0_PORT, PB0_PIN, PB0_PIN, false, true, true);
+  NVIC_EnableIRQ(GPIO_ODD_IRQn);
+}
+
+void init_PB1(void){
+  GPIO_PinModeSet(PB1_PORT, PB1_PIN, gpioModeInput, 0);
+  GPIO_ExtIntConfig(PB1_PORT, PB1_PIN, PB1_PIN, false, true, true);
+  NVIC_EnableIRQ(GPIO_EVEN_IRQn);
+}
+
+void init_uart1(void){
+  CMU_ClockEnable(cmuClock_UART1, true);
+  GPIO_PinModeSet(UART1_RX_PORT, UART1_RX_PIN, gpioModeInputPull, 1);
+  GPIO_PinModeSet(UART1_TX_PORT, UART1_TX_PIN, gpioModeInput, 1);
+  UART1->ROUTE |= UART_ROUTE_LOCATION_LOC3;  // Replace LOCx with the desired UART1 RX pin location for virtual port
+  UART1->ROUTE |= UART_ROUTE_RXPEN;  // Replace LOCy with the desired UART1 TX pin location for virtual port
+  UART1->ROUTE |= UART_ROUTE_TXPEN;
+  USART_InitAsync_TypeDef uartInit = USART_INITASYNC_DEFAULT;
+  USART_InitAsync(UART1, &uartInit);
+  USART_Enable(UART1, usartEnable);
+  USART_IntEnable(UART1, USART_IF_RXDATAV);
+  NVIC_EnableIRQ(UART1_RX_IRQn);
+}
+

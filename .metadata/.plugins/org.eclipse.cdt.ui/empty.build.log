@@ -1,0 +1,50 @@
+17:18:01 **** Incremental Build of configuration GNU ARM v10.3.1 - Debug for project empty ****
+make -j7 all 
+Building file: ../main.c
+Invoking: GNU ARM C Compiler
+arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m3 -mthumb -std=c99 '-DDEBUG=1' '-DDEBUG_EFM=1' '-DEFM32GG990F1024=1' '-DSL_BOARD_NAME="BRD2200C"' '-DSL_BOARD_REV="A01"' '-DSL_COMPONENT_CATALOG_PRESENT=1' -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/empty/config" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/empty/autogen" -I"/Users/dominikpapp/SimplicityStudio/v5_workspace/empty" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFM32GG/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//hardware/board/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/CMSIS/Core/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/CMSIS/RTOS2/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/device_init/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/cmsis/Include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/include" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//util/third_party/freertos/kernel/portable/GCC/ARM_CM3" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc" -I"/Users/dominikpapp/SimplicityStudio/SDKs/gecko_sdk//platform/service/system/inc" -Os -Wall -Wextra -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections -imacrossl_gcc_preinclude.h --specs=nano.specs -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.o" -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
+Building target: empty.axf
+Invoking: GNU ARM C Linker
+arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m3 -mthumb -T "/Users/dominikpapp/SimplicityStudio/v5_workspace/empty/autogen/linkerfile.ld" -Xlinker --gc-sections -Xlinker -Map="empty.map" --specs=nano.specs -o empty.axf -Wl,--start-group "./app.o" "./main.o" "./autogen/sl_board_default_init.o" "./autogen/sl_device_init_clocks.o" "./autogen/sl_event_handler.o" "./gecko_sdk_4.2.3/hardware/board/src/sl_board_control_gpio.o" "./gecko_sdk_4.2.3/hardware/board/src/sl_board_init.o" "./gecko_sdk_4.2.3/platform/CMSIS/RTOS2/Source/os_systick.o" "./gecko_sdk_4.2.3/platform/Device/SiliconLabs/EFM32GG/Source/startup_efm32gg.o" "./gecko_sdk_4.2.3/platform/Device/SiliconLabs/EFM32GG/Source/system_efm32gg.o" "./gecko_sdk_4.2.3/platform/common/src/sl_assert.o" "./gecko_sdk_4.2.3/platform/common/toolchain/src/sl_memory.o" "./gecko_sdk_4.2.3/platform/emlib/src/em_cmu.o" "./gecko_sdk_4.2.3/platform/emlib/src/em_core.o" "./gecko_sdk_4.2.3/platform/emlib/src/em_emu.o" "./gecko_sdk_4.2.3/platform/emlib/src/em_gpio.o" "./gecko_sdk_4.2.3/platform/emlib/src/em_msc.o" "./gecko_sdk_4.2.3/platform/emlib/src/em_system.o" "./gecko_sdk_4.2.3/platform/service/device_init/src/sl_device_init_emu_s0.o" "./gecko_sdk_4.2.3/platform/service/device_init/src/sl_device_init_hfxo_s0.o" "./gecko_sdk_4.2.3/platform/service/device_init/src/sl_device_init_lfxo_s0.o" "./gecko_sdk_4.2.3/platform/service/device_init/src/sl_device_init_nvic.o" "./gecko_sdk_4.2.3/platform/service/system/src/sl_system_init.o" "./gecko_sdk_4.2.3/platform/service/system/src/sl_system_kernel.o" "./gecko_sdk_4.2.3/util/third_party/freertos/cmsis/Source/cmsis_os2.o" "./gecko_sdk_4.2.3/util/third_party/freertos/kernel/croutine.o" "./gecko_sdk_4.2.3/util/third_party/freertos/kernel/event_groups.o" "./gecko_sdk_4.2.3/util/third_party/freertos/kernel/list.o" "./gecko_sdk_4.2.3/util/third_party/freertos/kernel/queue.o" "./gecko_sdk_4.2.3/util/third_party/freertos/kernel/stream_buffer.o" "./gecko_sdk_4.2.3/util/third_party/freertos/kernel/tasks.o" "./gecko_sdk_4.2.3/util/third_party/freertos/kernel/timers.o" "./gecko_sdk_4.2.3/util/third_party/freertos/kernel/portable/GCC/ARM_CM3/port.o" "./gecko_sdk_4.2.3/util/third_party/freertos/kernel/portable/MemMang/heap_2.o" -lgcc -lc -lm -lnosys -Wl,--end-group -Wl,--start-group -lgcc -lc -lnosys -Wl,--end-group
+Finished building target: empty.axf
+ 
+Building hex file: empty.hex
+arm-none-eabi-objcopy -O ihex "empty.axf" "empty.hex"
+ 
+Building bin file: empty.bin
+arm-none-eabi-objcopy -O binary "empty.axf" "empty.bin"
+ 
+Building s37 file: empty.s37
+arm-none-eabi-objcopy -O srec "empty.axf" "empty.s37"
+ 
+Running size tool
+arm-none-eabi-size "empty.axf" -A
+empty.axf  :
+section             size        addr
+.text               9200           0
+.ARM.exidx             8        9200
+.copy.table           12        9208
+.zero.table            0        9220
+.stack              4096   536870912
+.data                132   536875008
+.bss                3160   536875140
+.heap             123680   536878304
+.ARM.attributes       41           0
+.comment              73           0
+.debug_info        93613           0
+.debug_abbrev      13950           0
+.debug_aranges      3432           0
+.debug_ranges       5664           0
+.debug_line        60433           0
+.debug_str         24644           0
+.debug_frame        9624           0
+.debug_loc         64368           0
+Total             416130
+
+
+ 
+
+17:18:01 Build Finished. 0 errors, 0 warnings. (took 546ms)
+

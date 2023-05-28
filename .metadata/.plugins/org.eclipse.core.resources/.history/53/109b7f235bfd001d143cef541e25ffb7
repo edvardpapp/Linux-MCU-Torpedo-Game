@@ -1,0 +1,31 @@
+/*
+ * cursor.c
+ *
+ *  Created on: 28 May 2023
+ *      Author: dominikpapp
+ */
+#include <my/cursor.h>
+
+void init_cursor(SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  CURSOR_POS[0].a = true;
+}
+
+uint8_t getCursorPos(SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  for(int i = 0; i < SEGMENT_LCD_NUM_OF_LOWER_CHARS; i ++)
+    if(CURSOR_POS[i].raw > 0)
+      return i;
+}
+
+void moveUp(SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]){
+  uint8_t pos = getCursorPos(CURSOR_POS);
+  bool fhjkb = CURSOR_POS[pos].f || CURSOR_POS[pos].h ||CURSOR_POS[pos].j ||CURSOR_POS[pos].k ||CURSOR_POS[pos].b;
+  bool gm = CURSOR_POS[pos].m ||CURSOR_POS[pos].m;
+  bool eqpnc = CURSOR_POS[pos].e ||CURSOR_POS[pos].q ||CURSOR_POS[pos].p ||CURSOR_POS[pos].n ||CURSOR_POS[pos].c;
+  bool d = CURSOR_POS[pos].d;
+
+  if(fhjkb)
+    CURSOR_POS[pos].raw = 1 << 0;
+
+}
+
+

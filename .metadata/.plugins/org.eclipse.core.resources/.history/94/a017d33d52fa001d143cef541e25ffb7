@@ -1,0 +1,41 @@
+#include "my_init.h"
+
+void init_PB0(void){
+  GPIO_PinModeSet(PB0_PORT, PB0_PIN, gpioModeInput, 0);
+  GPIO_ExtIntConfig(PB0_PORT, PB0_PIN, PB0_PIN, false, true, true);
+  NVIC_EnableIRQ(GPIO_ODD_IRQn);
+}
+
+void init_PB1(void){
+  GPIO_PinModeSet(PB1_PORT, PB1_PIN, gpioModeInput, 0);
+  GPIO_ExtIntConfig(PB1_PORT, PB1_PIN, PB1_PIN, false, true, true);
+  NVIC_EnableIRQ(GPIO_EVEN_IRQn);
+}
+
+void init_lcd(void){
+  SegmentLCD_Init(false);
+}
+
+
+void init_vcom(void){
+  GPIO_PinModeSet(VCOM_PORT, VCOM_PIN, gpioModePushPull, 1);
+}
+
+void init_uart0(void){
+  // Enable oscillator to UART module
+  CMU_ClockEnable(cmuClock_UART0, true);
+  // set pin modes for UART TX and RX pins
+  GPIO_PinModeSet(UART0_TX_PORT, UART0_TX_PIN, gpioModePushPull, 1);
+  GPIO_PinModeSet(UART0_RX_PORT, UART0_RX_PIN, gpioModeInput, 0);
+  // Initialize USART asynchronous mode and route pins
+  USART_InitAsync_TypeDef init = USART_INITASYNC_DEFAULT;
+  USART_InitAsync(UART0, &init);
+  UART0->ROUTE |= UART_ROUTE_TXPEN | UART_ROUTE_RXPEN | UART_ROUTE_LOCATION_LOC1;
+  //Clear possible interrupt
+  USART_IntClear(UART0, UART_IFC_RXFULL);
+  //Initialise USART Interrupt
+  USART_IntEnable(UART0, UART_IEN_RXFULL);
+  //Enabling USART Interrupts
+  NVIC_EnableIRQ(UART0_RX_IRQn);
+}
+

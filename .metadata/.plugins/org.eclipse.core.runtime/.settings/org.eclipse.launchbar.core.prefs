@@ -1,0 +1,9 @@
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=macosx
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:PEP_FreeRTOS_2023_2 GNU ARM v10.3.1 - Debug GDB,org.eclipse.launchbar.core.descriptorType.default\:empty GNU ARM v10.3.1 - Debug GDB,org.eclipse.launchbar.core.descriptorType.default\:hf GNU ARM v10.3.1 - Debug GDB
+eclipse.preferences.version=1
+org.eclipse.launchbar.core.descriptorType.default\:PEP_FreeRTOS_2023_2\ GNU\ ARM\ v10.3.1\ -\ Debug\ GDB/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:PEP_FreeRTOS_2023_2\ GNU\ ARM\ v10.3.1\ -\ Debug\ GDB/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:hf\ GNU\ ARM\ v10.3.1\ -\ Debug\ GDB/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:hf\ GNU\ ARM\ v10.3.1\ -\ Debug\ GDB/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
