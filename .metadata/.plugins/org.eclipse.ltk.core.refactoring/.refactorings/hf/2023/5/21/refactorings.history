@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;hf/my/map.c&apos; to &apos;field.c&apos;" description="Rename resource &apos;map.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="my/map.c" name="field.c" stamp="1685285389328" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;hf/my/map.h&apos; to &apos;field.h&apos;" description="Rename resource &apos;map.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="my/map.h" name="field.h" stamp="1685285402529" updateReferences="true"/>
-</session>

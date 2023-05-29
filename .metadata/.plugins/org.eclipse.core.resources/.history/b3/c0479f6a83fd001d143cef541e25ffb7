@@ -1,7 +1,0 @@
-#include "segmentlcd_individual.h"
-#include <stdbool.h>
-#include "cursor.h"
-
-extern bool game_levels[16][SEGMENT_LCD_NUM_OF_LOWER_CHARS][14];
-
-bool shoot(SegmentLCD_LowerCharSegments_TypeDef MAP[SEGMENT_LCD_NUM_OF_LOWER_CHARS], SegmentLCD_LowerCharSegments_TypeDef CURSOR_POS[SEGMENT_LCD_NUM_OF_LOWER_CHARS]);

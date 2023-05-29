@@ -1,7 +1,0 @@
-10:21:03 **** Clean-only build of configuration GNU ARM v7.2.1 - Debug for project hazi ****
-make -j7 clean 
-rm -rf  ./src/My_Segment_functions.o ./src/main.o  ./service/sl_sleeptimer.o ./service/sl_sleeptimer_hal_rtc.o  ./emlib/em_acmp.o ./emlib/em_assert.o ./emlib/em_cmu.o ./emlib/em_core.o ./emlib/em_emu.o ./emlib/em_gpio.o ./emlib/em_lcd.o ./emlib/em_lesense.o ./emlib/em_rtc.o ./emlib/em_system.o ./emlib/em_vcmp.o  ./Drivers/caplesense.o ./Drivers/segmentlcd.o ./Drivers/vddcheck.o  ./CMSIS/EFM32GG/startup_gcc_efm32gg.o ./CMSIS/EFM32GG/system_efm32gg.o  ./BSP/bsp_trace.o  ./src/My_Segment_functions.d ./src/main.d  ./service/sl_sleeptimer.d ./service/sl_sleeptimer_hal_rtc.d  ./emlib/em_acmp.d ./emlib/em_assert.d ./emlib/em_cmu.d ./emlib/em_core.d ./emlib/em_emu.d ./emlib/em_gpio.d ./emlib/em_lcd.d ./emlib/em_lesense.d ./emlib/em_rtc.d ./emlib/em_system.d ./emlib/em_vcmp.d  ./Drivers/caplesense.d ./Drivers/segmentlcd.d ./Drivers/vddcheck.d  ./CMSIS/EFM32GG/system_efm32gg.d  ./BSP/bsp_trace.d  hazi.axf
- 
-
-10:21:04 Build Finished. 0 errors, 0 warnings. (took 414ms)
-
