@@ -70,9 +70,17 @@ void vTimerCallback(void){
  ******************************************************************************/
 void Game_data_transmit(uint8_t shoots){
   xTimerStop(hMsTimer, portMAX_DELAY);
-  char buffer[12];  // Assuming 32-bit value can be represented in 12 characters (including null terminator)
+  char buffer[12];  // 32-bit value can always be represented in 11 characters (including null terminator), plus decimal point
   snprintf(buffer, sizeof(buffer), "%lu", game_time_100ms);  // Convert uint32_t to string to display in ASCII
-  // Send the string over USART (pseudo-code)
+
+  // Convert to seconds: Insert the decimal point before the last digit
+  // There is always room for decimal point
+  uint8_t length = strlen(buffer);  // Place of null terminator
+  buffer[length + 1] = buffer[length];  // Move null terminator one place
+  buffer[length] = buffer[length - 1];  // Move last digit one place
+  buffer[length - 1] = '.';             // Insert decimal point before last digit
+
+  // Send the string over USART
   for (int i = 0; buffer[i] != '\0'; i++) {
       USART_Tx(UART0, buffer[i]);// Send buffer[i] character over USART
   }
