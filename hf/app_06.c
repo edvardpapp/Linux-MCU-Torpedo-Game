@@ -65,6 +65,22 @@ void UART0_RX_IRQHandler(void)
 void vTimerCallback(void){
   game_time_100ms ++;
 }
+/***************************************************************************//**
+ * User functions
+ ******************************************************************************/
+void Game_data_transmit(uint8_t shoots){
+  xTimerStop(hMsTimer, portMAX_DELAY);
+  char buffer[12];  // Assuming 32-bit value can be represented in 12 characters (including null terminator)
+  snprintf(buffer, sizeof(buffer), "%lu", game_time_100ms);  // Convert uint32_t to string to display in ASCII
+  // Send the string over USART (pseudo-code)
+  for (int i = 0; buffer[i] != '\0'; i++) {
+      USART_Tx(UART0, buffer[i]);// Send buffer[i] character over USART
+  }
+  USART_Tx(UART0, ' '); // Separate data with space
+
+  USART_Tx(UART0, ('0' + shoots/10)); // Send first digit of shoot
+  USART_Tx(UART0, ('0' + shoots%10)); // Send second digit of shoot
+}
 
 /***************************************************************************//**
  * FreeRTOS tasks.
@@ -91,9 +107,9 @@ static void prvTaskLCD(void *pvParam) {
       if(start){  // Start protocol is to be checked
           // Wait for 2 characters
           xQueueReceive(UartData, &c, portMAX_DELAY);
-          startFrame[strlen(startFrame)] = c;
+          startFrame[strlen(startFrame)] = c; // Add new char to next position in buffer
           xQueueReceive(UartData, &c, portMAX_DELAY);
-          startFrame[strlen(startFrame)] = c;
+          startFrame[strlen(startFrame)] = c; // Add new char to next position in buffer
           if(strcmp(startFrame, "xx") == 0){  // Correct frame is xx'num' where 0 < 'num' < 16
               // Receive two bytes and check map initialiser value
               xQueueReceive(UartData, &c, portMAX_DELAY);
@@ -141,8 +157,10 @@ static void prvTaskLCD(void *pvParam) {
           // Makes shooting effect
           SegmentLCD_ARingOnDelay(60);
           if(shoot(MAP, CURSOR_POS)){ // Check if ship has been hit
-              if(isHit(HIT, CURSOR_POS))  // Check if ship has been hit previously
-                break; // Break, so hit is not counted again
+              if(isHit(HIT, CURSOR_POS)){  // Check if ship has been hit previously
+                  SegmentLCD_ARingSet(false); // Kill ring display to signal unsuccessful shoot
+                  break; // Break, so hit is not counted again
+              }
               // Blink ring 3 times to signal successful shot
               SegmentLCD_ARingBlink(7, false, 400);
               // Save ship being hit
@@ -153,6 +171,7 @@ static void prvTaskLCD(void *pvParam) {
             SegmentLCD_ARingSet(false);
           break;
         case 'q':
+          Game_data_transmit(shoots); // Send relevant data back to PC
           // Display ESC string to signal pressing of ESCs
           SegmentLCD_Write("ABORTED");
           vTaskSuspendAll(); // All Tasks are suspended to prevent display of other information
@@ -166,13 +185,7 @@ static void prvTaskLCD(void *pvParam) {
       // Display new cursor position
       FieldPlusCursor(FIELD, CURSOR_POS);
       if(hits == 8){  // End of game
-          xTimerStop(hMsTimer, portMAX_DELAY);
-          char buffer[12];  // Assuming 32-bit value can be represented in 12 characters (including null terminator)
-          snprintf(buffer, sizeof(buffer), "%lu", game_time_100ms);  // Convert uint32_t to string to display in ASCII
-          // Send the string over USART (pseudo-code)
-          for (int i = 0; buffer[i] != '\0'; i++) {
-              USART_Tx(UART0, buffer[i]);// Send buffer[i] character over USART
-          }
+          Game_data_transmit(shoots); // Send relevant data back to PC
           // Display WINNER string to signal successful completion of game
           SegmentLCD_Write("WINNER");
           vTaskSuspendAll(); // All Tasks are suspended to prevent display of other information
