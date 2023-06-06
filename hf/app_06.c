@@ -134,6 +134,7 @@ static void prvTaskLCD(void *pvParam) {
         case 'd':
           moveRight(CURSOR_POS);
           break;
+        case '\r':
         case '\n':
           // Increment and display new shoot value
           SegmentLCD_Number(++shoots);
@@ -151,9 +152,9 @@ static void prvTaskLCD(void *pvParam) {
           else  // Kill ring display to signal unsuccessful shoot
             SegmentLCD_ARingSet(false);
           break;
-        case 0x1B:
+        case 'q':
           // Display ESC string to signal pressing of ESCs
-          SegmentLCD_Write("ESC");
+          SegmentLCD_Write("ABORTED");
           vTaskSuspendAll(); // All Tasks are suspended to prevent display of other information
           vTaskSuspend(NULL);
           break;
