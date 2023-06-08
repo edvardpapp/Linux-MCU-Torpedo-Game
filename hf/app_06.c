@@ -180,7 +180,7 @@ static void prvTaskLCD(void *pvParam) {
           break;
         case 'q':
           Game_data_transmit(shoots); // Send relevant data back to PC
-          // Display ESC string to signal pressing of ESCs
+          // Display OVER string to signal pressing of q
           SegmentLCD_Write("OVER");
           vTaskSuspendAll(); // All Tasks are suspended to prevent display of other information
           vTaskSuspend(NULL);
