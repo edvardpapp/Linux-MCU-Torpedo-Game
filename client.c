@@ -29,9 +29,9 @@ int main(int argc, char* argv[]) {
     memset((char *) &server_addr, 0x00, sizeof(server_addr));
     int portno = atoi(argv[2]);
     server_addr.sin_family = AF_INET;
-    struct in_addr saddr;
-    inet_aton(argv[1], &saddr);
-    memmove((char *)&saddr, (char *)&server_addr.sin_addr.s_addr, sizeof(saddr));
+    struct in_addr seraddr;
+    inet_aton(argv[1], &seraddr);
+    server_addr.sin_addr = seraddr;
     server_addr.sin_port = htons(portno);
     if (connect(sockfd, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0) {
         write(STDERR_FILENO, "Error connecting.\n", strlen("Error connecting.\n"));

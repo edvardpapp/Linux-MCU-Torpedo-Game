@@ -8,11 +8,12 @@
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 
 int main(int argc, char* argv[]) {
     //Parancssori argumentumok kezelése
     if (argc < 3) {
-        write(STDERR_FILENO, "Please provide a port number and a serial port number.\n", strlen("Please provide a port number and a serial port number.\n"));
+        write(STDERR_FILENO, "Please provide an IP address, a port number and a serial port number.\n", strlen("Please provide an IP address, a port number and a serial port number.\n"));
         return -1;
     }
 
@@ -25,9 +26,11 @@ int main(int argc, char* argv[]) {
     }
     struct sockaddr_in serv_addr, client_addr;
     memset(&serv_addr, 0x00, sizeof(serv_addr));
-    int portno = atoi(argv[1]);
+    int portno = atoi(argv[2]);
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = INADDR_ANY;
+    struct in_addr seraddr;
+    inet_aton(argv[1], &seraddr);
+    serv_addr.sin_addr = seraddr;
     serv_addr.sin_port = htons(portno);
     if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         write(STDERR_FILENO, "Error binding.\n", strlen("Error binding.\n"));
@@ -51,7 +54,7 @@ int main(int argc, char* argv[]) {
     serial.c_cc[VTIME] = 5;
     cfsetospeed(&serial, B1152000);
     cfsetispeed(&serial, B1152000);
-    int serial_fd = open (argv[2], O_RDWR);
+    int serial_fd = open (argv[3], O_RDWR);
     if (serial_fd == -1) {
         write(STDERR_FILENO, "Could not open serial port!\n", 28);
         return -1;
